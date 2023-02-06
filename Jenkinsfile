@@ -8,21 +8,6 @@ pipeline {
     
     stages {
         
-        def myImg
-        stage ("Build image") {
-            // download the dockerfile to build from
-            git 'git@diyvb:repos/dockerResources.git'
-
-            // build our docker image
-            myImg = docker.build 'my-image:snapshot'
-        }
-        
-        stage ("Run Build") {
-            myImg.inside() {
-                sh "docker ps -a"
-                }
-        }
-        
         stage('Build') {
             steps {
                 sh 'npm install'
@@ -36,7 +21,6 @@ pipeline {
         stage('Deploy') { 
             steps {
                 sh './jenkins/scripts/deliver.sh' 
-                sh 'docker ps -a'
                 input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
                 sh './jenkins/scripts/kill.sh' 
             }
