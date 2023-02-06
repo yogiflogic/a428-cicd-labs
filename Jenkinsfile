@@ -5,7 +5,15 @@ pipeline {
             args '-p 3000:3000'
         }
     }
+    
     stages {
+        
+        stage ("Run Build") {
+            myImg.inside() {
+                sh "docker ps -a"
+                }
+        }
+        
         stage('Build') {
             steps {
                 sh 'npm install'
