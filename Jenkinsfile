@@ -24,7 +24,10 @@ pipeline {
                 input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
 //                 sh './jenkins/scripts/kill.sh' 
             }
-             sh 'scp build/* root@ec2-13-213-4-71.ap-southeast-1.compute.amazonaws.com:/var/www/html'
+        }
+        
+        stage('AWS EC2'){
+            sh 'scp build/* root@ec2-13-213-4-71.ap-southeast-1.compute.amazonaws.com:/var/www/html'
         }
     }
 }
